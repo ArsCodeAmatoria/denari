@@ -2,7 +2,7 @@
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![GitHub last commit](https://img.shields.io/github/last-commit/ArsCodeAmatoria/denari)](https://github.com/ArsCodeAmatoria/denari/commits/main)
-[![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=denari-site)](https://denari-site-kojin-foxs-projects.vercel.app)
+[![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=denari-site)](https://denari-site-rnobpqoeg-kojin-foxs-projects.vercel.app)
 
 Denari is a crypto-native **unit of account** built on Substrate and inspired by Chile's **Unidad de Fomento (UF)** — an inflation-adjusted currency used in real estate, savings, and long-term contracts. Denari brings that same concept to the blockchain era, using the **U.S. Consumer Price Index (CPI)** as its peg to maintain purchasing power over time.
 
@@ -45,7 +45,7 @@ See the denari-chain directory for instructions on running the Substrate node.
 
 ## Live Demo
 
-Check out our live demo at [https://denari-site-kojin-foxs-projects.vercel.app](https://denari-site-kojin-foxs-projects.vercel.app)
+Check out our live demo at [https://denari-site-rnobpqoeg-kojin-foxs-projects.vercel.app](https://denari-site-rnobpqoeg-kojin-foxs-projects.vercel.app)
 
 ## License
 
