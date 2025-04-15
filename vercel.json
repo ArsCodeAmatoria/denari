@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "projectSettings": {
-    "buildCommand": null,
-    "devCommand": null,
-    "rootDirectory": "denari-site"
-  }
+  "buildCommand": "cd denari-site && npm install && npm run build",
+  "outputDirectory": "denari-site/.next",
+  "framework": "nextjs"
 } 
