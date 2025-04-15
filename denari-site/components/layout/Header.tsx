@@ -30,7 +30,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-lg font-bold tracking-tight text-primary">
+            <span className="text-2xl font-bold tracking-tight text-primary hover:text-primary/90 transition-colors">
               Denari
             </span>
           </Link>
