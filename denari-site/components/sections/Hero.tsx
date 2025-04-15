@@ -49,8 +49,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative h-[450px] w-full"
           >
-            {/* Solar system container with glass effect */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden border border-muted/20 backdrop-blur-[2px] bg-black/10">
+            {/* Solar system container with no border for better blending */}
+            <div className="absolute inset-0 rounded-2xl overflow-hidden">
               <div className="h-full w-full">
                 <SolarSystem />
               </div>
