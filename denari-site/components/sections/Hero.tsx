@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, ShieldCheck } from "lucide-react";
+import { SolarSystem } from "@/components/three/SolarSystem";
 
 export function Hero() {
   return (
@@ -46,31 +47,32 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative h-[400px] w-full"
+            className="relative h-[450px] w-full"
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* Animated coin with glow effect */}
-              <motion.div
-                animate={{ y: [0, -15, 0] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="w-64 h-64 rounded-full bg-gradient-to-tr from-denari-bg via-muted to-primary flex items-center justify-center shadow-neon"
-              >
-                <div className="w-56 h-56 rounded-full border-8 border-denari-accent/20 flex items-center justify-center text-5xl font-bold text-primary">
-                  DNR
-                </div>
-              </motion.div>
-              
-              {/* Small floating details */}
-              <motion.div
-                animate={{ opacity: [0.5, 1, 0.5], scale: [0.9, 1, 0.9] }}
-                transition={{ repeat: Infinity, duration: 5 }}
-                className="absolute top-12 -right-4 bg-card p-3 rounded-lg border border-border/40 shadow-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-5 w-5 text-green-500" />
-                  <span className="text-sm font-medium">CPI Protected</span>
-                </div>
-              </motion.div>
+            {/* Solar system container with glass effect */}
+            <div className="absolute inset-0 rounded-2xl overflow-hidden border border-muted/20 backdrop-blur-[2px] bg-black/10">
+              <div className="h-full w-full">
+                <SolarSystem />
+              </div>
+            </div>
+            
+            {/* Decorative elements */}
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5], scale: [0.9, 1, 0.9] }}
+              transition={{ repeat: Infinity, duration: 5 }}
+              className="absolute top-6 right-6 bg-card/80 p-3 rounded-lg border border-border/40 backdrop-blur-sm shadow-lg z-10"
+            >
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-green-500" />
+                <span className="text-sm font-medium">CPI Protected</span>
+              </div>
+            </motion.div>
+            
+            {/* Label at bottom */}
+            <div className="absolute bottom-6 left-0 right-0 text-center z-10">
+              <div className="inline-flex items-center gap-2 rounded-full bg-background/50 px-4 py-2 text-sm font-medium backdrop-blur-sm border border-border/40">
+                <span>Denari Ecosystem</span>
+              </div>
             </div>
           </motion.div>
         </div>
