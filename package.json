@@ -1,0 +1,15 @@
+{
+  "name": "denari",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "denari-site"
+  ],
+  "scripts": {
+    "dev:site": "cd denari-site && npm run dev",
+    "build:site": "cd denari-site && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 
