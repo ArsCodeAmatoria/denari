@@ -1,10 +1,4 @@
 {
-  "projectSettings": {
-    "framework": "nextjs",
-    "buildCommand": null,
-    "devCommand": null,
-    "installCommand": null,
-    "outputDirectory": null,
-    "rootDirectory": "denari-site"
-  }
+  "framework": "nextjs",
+  "rootDirectory": "denari-site"
 } 
