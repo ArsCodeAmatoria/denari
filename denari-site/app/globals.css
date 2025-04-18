@@ -59,3 +59,18 @@
     @apply px-4 mx-auto max-w-[var(--max-width)];
   }
 }
+
+@layer utilities {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .shadow-neon {
+    box-shadow: 0 0 5px theme(colors.denari.glow), 0 0 20px theme(colors.denari.glow);
+  }
+
+  .perspective {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+}

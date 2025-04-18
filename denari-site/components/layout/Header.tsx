@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -16,30 +16,25 @@ const navItems = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  const toggleTheme = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    document.documentElement.classList.toggle("dark", newMode);
-    document.documentElement.classList.toggle("light", !newMode);
-  };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold tracking-tight text-primary hover:text-primary/90 transition-colors">
-              Denari
-            </span>
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="relative flex items-center">
+              <span className="absolute -inset-1 rounded-full blur bg-gradient-to-r from-indigo-500 via-purple-500 to-primary opacity-0 transition duration-300 group-hover:opacity-40"></span>
+              <span className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400 hover:from-indigo-500 hover:to-primary transition-all duration-300">
+                Denari
+              </span>
+            </div>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary hover:underline hover:underline-offset-4"
               >
                 {item.label}
               </Link>
@@ -47,19 +42,14 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="Toggle theme"
-            onClick={toggleTheme}
-            className="mr-2"
-          >
-            {isDarkMode ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
+        <div className="flex items-center gap-4">
+          <Button variant="outline" size="sm" className="hidden md:flex">
+            Documentation
+            <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+          </Button>
+          
+          <Button size="sm" className="hidden md:flex shadow-neon">
+            Launch App
           </Button>
 
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -69,7 +59,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[80vw] sm:w-[350px]">
-              <div className="flex flex-col gap-4 px-2 pt-6">
+              <div className="flex flex-col gap-6 px-2 pt-6">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
@@ -80,6 +70,17 @@ export function Header() {
                     {item.label}
                   </Link>
                 ))}
+                
+                <div className="space-y-3 pt-4 mt-4 border-t border-border/40">
+                  <Button variant="outline" size="default" className="w-full justify-start">
+                    Documentation
+                    <ExternalLink className="ml-auto h-4 w-4" />
+                  </Button>
+                  
+                  <Button size="default" className="w-full justify-start shadow-neon">
+                    Launch App
+                  </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
