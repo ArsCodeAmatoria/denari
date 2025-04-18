@@ -20,16 +20,16 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative flex items-center">
-              <span className="absolute -inset-1 rounded-full blur bg-gradient-to-r from-indigo-500 via-purple-500 to-primary opacity-0 transition duration-300 group-hover:opacity-40"></span>
-              <span className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400 hover:from-indigo-500 hover:to-primary transition-all duration-300">
+              <span className="absolute -inset-2 rounded-full blur bg-gradient-to-r from-indigo-500 via-purple-500 to-primary opacity-0 transition duration-300 group-hover:opacity-40"></span>
+              <span className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400 hover:from-indigo-500 hover:to-primary transition-all duration-300">
                 Denari
               </span>
             </div>
           </Link>
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -43,9 +43,11 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button variant="outline" size="sm" className="hidden md:flex">
-            Documentation
-            <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+          <Button variant="outline" size="sm" className="hidden md:flex" asChild>
+            <Link href="/docs">
+              Documentation
+              <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+            </Link>
           </Button>
           
           <Button size="sm" className="hidden md:flex shadow-neon">
@@ -72,9 +74,11 @@ export function Header() {
                 ))}
                 
                 <div className="space-y-3 pt-4 mt-4 border-t border-border/40">
-                  <Button variant="outline" size="default" className="w-full justify-start">
-                    Documentation
-                    <ExternalLink className="ml-auto h-4 w-4" />
+                  <Button variant="outline" size="default" className="w-full justify-start" asChild>
+                    <Link href="/docs">
+                      Documentation
+                      <ExternalLink className="ml-auto h-4 w-4" />
+                    </Link>
                   </Button>
                   
                   <Button size="default" className="w-full justify-start shadow-neon">

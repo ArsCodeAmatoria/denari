@@ -1,0 +1,85 @@
+# Inflation Indexing
+
+This page explains how Denari's inflation indexing mechanism works to maintain the cryptocurrency's purchasing power over time.
+
+## Overview
+
+Denari is designed to be the world's first truly inflation-resistant cryptocurrency. Unlike other digital assets that can lose purchasing power due to inflation, Denari's innovative indexing mechanism automatically adjusts the token supply in response to real-world inflation data, ensuring that the value of your holdings maintains consistent purchasing power over time.
+
+## How Inflation Indexing Works
+
+### Data Collection
+
+At the core of Denari's inflation indexing system is a reliable source of inflation data:
+
+1. **Multiple Data Sources**: Denari collects inflation data from several reputable sources, including government statistical agencies and independent economic research institutions.
+
+2. **Consumer Price Index (CPI)**: The primary metric used is the Consumer Price Index, which measures the average change in prices paid by consumers for goods and services over time.
+
+3. **Oracle Network**: A decentralized network of oracles brings this real-world data onto the blockchain in a secure, transparent, and tamper-resistant way.
+
+### The Denari Index
+
+The collected data is processed to create the Denari Index:
+
+1. **Weighted Calculation**: Different inflation metrics are weighted according to their reliability and relevance to create a comprehensive inflation index.
+
+2. **Geographic Diversity**: Data from multiple regions is incorporated to ensure the index is not overly influenced by conditions in any single economy.
+
+3. **Validation Mechanism**: Before being used to adjust the token supply, the index values undergo a validation process to prevent manipulation or errors.
+
+### Supply Adjustment Mechanism
+
+Denari uses an elastic supply model to maintain purchasing power:
+
+1. **Rebase Operations**: At predetermined intervals (typically monthly), the protocol performs "rebases" that adjust the total token supply.
+
+2. **Proportional Distribution**: When the supply expands in response to inflation, new tokens are distributed proportionally to all token holders. This means if you hold 1% of the total supply before a rebase, you'll still hold 1% after the rebase, but your actual token count will increase.
+
+3. **Supply Contraction**: In rare cases of deflation, the supply can also contract, though this is historically less common than expansion.
+
+## Example Scenario
+
+Let's consider a practical example of how inflation indexing works for Denari holders:
+
+1. **Initial State**: Alice holds 100 Denari tokens when the annual inflation rate is 3%.
+
+2. **Inflation Event**: Official data shows that prices have risen by 3% over the past year.
+
+3. **Rebase Process**: The Denari protocol initiates a rebase, expanding the token supply by 3%.
+
+4. **Result**: After the rebase, Alice now holds 103 Denari tokens. The purchasing power of her holdings remains the same as it was before inflation occurred.
+
+## Benefits of Inflation Indexing
+
+Denari's inflation indexing mechanism provides several key advantages:
+
+1. **Preservation of Value**: By adjusting to inflation, Denari maintains its purchasing power over time, unlike fixed-supply cryptocurrencies.
+
+2. **Economic Stability**: The predictable and transparent nature of the adjustment mechanism provides stability for users and applications built on Denari.
+
+3. **Reduced Volatility**: While price fluctuations due to market forces still exist, the indexing mechanism helps mitigate the long-term decline in purchasing power experienced by other assets.
+
+4. **Future-Proof Design**: The system is designed to adapt to various inflation scenarios, from moderate inflation to more extreme cases.
+
+## Technical Implementation
+
+At a technical level, Denari implements inflation indexing through:
+
+1. **Dedicated Pallets**: Custom modules in the Substrate framework handle the data collection, validation, and supply adjustment processes.
+
+2. **Smart Contract Integration**: For interoperability with other blockchains, inflation data and adjustment parameters are accessible via smart contracts.
+
+3. **Governance Oversight**: While the system is largely automated, governance mechanisms allow for parameter adjustments and improvements to the indexing methodology.
+
+## Looking Ahead
+
+The Denari team continuously refines the inflation indexing mechanism:
+
+1. **Ongoing Research**: Economic research informs improvements to the weighting and calculation of the Denari Index.
+
+2. **Enhanced Oracle Network**: Regular updates strengthen the security and accuracy of the inflation data oracle network.
+
+3. **Parameter Optimization**: Governance proposals can adjust parameters such as rebase frequency and validation thresholds to optimize performance.
+
+By providing a reliable hedge against inflation, Denari aims to establish itself as an essential asset for preserving wealth in an uncertain economic landscape. 

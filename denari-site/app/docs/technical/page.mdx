@@ -1,0 +1,259 @@
+# Technical Documentation
+
+This page provides technical details about Denari's architecture, implementation, and API for developers who want to build on or contribute to the Denari protocol.
+
+## Architecture Overview
+
+Denari is built on a modular architecture using the Substrate framework, which provides several key advantages:
+
+- **Upgradability**: Runtime can be upgraded without hard forks
+- **Modularity**: Functionality is divided into specialized pallets
+- **Interoperability**: Native compatibility with the Polkadot ecosystem
+- **Flexibility**: Custom runtime execution environment
+
+The architecture consists of several layers:
+
+```
+┌───────────────────────────────────────────────────┐
+│                   Applications                     │
+│    (Wallets, Explorers, dApps, Integrations)      │
+└───────────────────────────────────────────────┬───┘
+                                                │
+┌───────────────────────────────────────────────▼───┐
+│                  Denari Runtime                    │
+├───────────────┬───────────────┬──────────────┬────┤
+│ Inflation     │ Governance    │ Treasury     │    │
+│ Index Pallet  │ Pallet        │ Pallet       │ .. │
+├───────────────┼───────────────┼──────────────┼────┤
+│ Oracle        │ Balances      │ Assets       │    │
+│ Pallet        │ Pallet        │ Pallet       │ .. │
+└───────────────┴───────────────┴──────────────┴────┘
+                                                │
+┌───────────────────────────────────────────────▼───┐
+│                Substrate Framework                 │
+│   (Consensus, Networking, Storage, Execution)      │
+└───────────────────────────────────────────────────┘
+```
+
+## Core Pallets
+
+### Inflation Index Pallet
+
+The heart of Denari's inflation-resistance mechanism:
+
+- Receives CPI data from the Oracle Pallet
+- Calculates inflation adjustments
+- Triggers supply adjustments
+- Maintains historical index data
+
+**Key Functions**:
+```rust
+// Calculate and execute a rebase operation based on the latest CPI data
+pub fn execute_rebase() -> DispatchResult;
+
+// Record a new CPI data point from oracles
+pub fn record_cpi_data(data: CpiData) -> DispatchResult;
+
+// Get the current inflation index value
+pub fn get_current_index() -> Index;
+```
+
+### Oracle Pallet
+
+Responsible for bringing off-chain inflation data on-chain:
+
+- Manages a network of trusted data providers
+- Aggregates data from multiple sources
+- Performs outlier detection and data validation
+- Provides consensus mechanism for data verification
+
+**Key Functions**:
+```rust
+// Submit a new oracle report (restricted to authorized oracles)
+pub fn submit_report(origin: OriginFor<T>, report: Report<T>) -> DispatchResult;
+
+// Get the latest validated data point
+pub fn get_latest_validated_data() -> Option<ValidatedData>;
+```
+
+### Governance Pallet
+
+Enables the community to manage and upgrade the protocol:
+
+- Proposal creation and voting
+- Parameter adjustments
+- Runtime upgrades
+- Treasury disbursement
+
+## Technical Implementation Details
+
+### Inflation Calculation
+
+Denari uses a weighted average of multiple inflation metrics:
+
+```
+Denari Index = (CPI_US * w₁) + (CPI_EU * w₂) + (CPI_Global * w₃)
+```
+
+Where:
+- CPI_X = Consumer Price Index for region X
+- wᵢ = Weight assigned to each index (collectively summing to 1)
+
+### Token Supply Adjustment
+
+When a rebase occurs:
+
+1. The system calculates the inflation rate since the last rebase
+2. Token balances are adjusted proportionally
+3. The adjustment is atomic and affects all token holders equally
+
+### Oracle Validation
+
+Denari uses a robust validation approach for inflation data:
+
+1. Multiple independent oracles submit data
+2. Outliers beyond a specified standard deviation are discarded
+3. Remaining data points are weighted by oracle reputation
+4. A consensus value is calculated and used for rebasing
+
+## Smart Contract Integration
+
+For developers looking to integrate with Denari on EVM-compatible chains:
+
+### Token Interface
+
+The Denari token implements the ERC-20 standard with additional functions for rebasing:
+
+```solidity
+// SPDX-License-Identifier: MIT
+interface IDenariToken is IERC20 {
+    // Get the inflation index value used for the last rebase
+    function lastIndexValue() external view returns (uint256);
+    
+    // Get the timestamp of the last rebase
+    function lastRebaseTime() external view returns (uint256);
+    
+    // Convert between normalized and denormalized amounts
+    function normalizedToDenormalized(uint256 amount) external view returns (uint256);
+    function denormalizedToNormalized(uint256 amount) external view returns (uint256);
+}
+```
+
+### Oracle Interface
+
+```solidity
+interface IDenariOracle {
+    // Get the latest CPI data
+    function getLatestCpiData() external view returns (
+        uint256 value,
+        uint256 timestamp,
+        uint8 decimals
+    );
+    
+    // Get historical CPI data
+    function getCpiDataAt(uint256 timestamp) external view returns (
+        uint256 value,
+        bool exists
+    );
+}
+```
+
+## API Reference
+
+Denari provides several APIs for developers:
+
+### JSON-RPC Endpoints
+
+```
+https://rpc.denari.io
+```
+
+Example queries:
+
+```javascript
+// Get current inflation index
+const currentIndex = await api.query.inflationIndex.currentIndex();
+
+// Get historical index at specific block
+const historicalIndex = await api.query.inflationIndex.indexHistory(blockNumber);
+
+// Get pending governance proposals
+const proposals = await api.query.governance.proposals();
+```
+
+### GraphQL API
+
+```
+https://graph.denari.io/graphql
+```
+
+Example query:
+
+```graphql
+query {
+  rebases(first: 10, orderBy: timestamp, orderDirection: desc) {
+    id
+    timestamp
+    oldIndex
+    newIndex
+    percentageChange
+  }
+  
+  inflationMetrics(where: { timestamp_gt: "1640995200" }) {
+    id
+    timestamp
+    yearOverYearChange
+    monthOverMonthChange
+  }
+}
+```
+
+## Development Environment
+
+To set up a local development environment:
+
+1. **Prerequisites**:
+   - Rust toolchain
+   - Node.js (for JS/TS integrations)
+   - Docker (optional, for containerized setup)
+
+2. **Clone the repository**:
+   ```bash
+   git clone https://github.com/denari-project/denari-chain.git
+   cd denari-chain
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   cargo build
+   ```
+
+4. **Run a local development node**:
+   ```bash
+   cargo run --release -- --dev
+   ```
+
+5. **Run tests**:
+   ```bash
+   cargo test
+   ```
+
+## Security Considerations
+
+When integrating with Denari, consider these security best practices:
+
+1. **Rebase Handling**: Applications should properly handle balance changes due to rebases
+2. **Oracle Data Verification**: Verify oracle data using multiple sources when possible
+3. **Governance Proposals**: Include timelocks for sensitive protocol changes
+4. **Smart Contract Integration**: Handle potential rounding issues when converting between amounts
+
+## Contributing to Denari
+
+We welcome contributions to the Denari protocol. To contribute:
+
+1. **Find an issue**: Review open issues on our GitHub repository
+2. **Fork and clone**: Create your own fork of the repository
+3. **Make changes**: Implement your feature or fix with appropriate tests
+4. **Submit a PR**: Open a pull request with a clear description of your changes
+
+For more detailed information, see our [Contributing Guide](https://github.com/denari-project/denari-chain/blob/main/CONTRIBUTING.md). 
