@@ -1,7 +1,10 @@
 {
-  "outputDirectory": "denari-site/.next",
-  "buildCommand": "cd denari-site && npm install && npm run build",
-  "installCommand": "cd denari-site && npm install",
-  "devCommand": "cd denari-site && npm run dev",
-  "rootDirectory": "denari-site"
+  "projectSettings": {
+    "framework": "nextjs",
+    "buildCommand": null,
+    "devCommand": null,
+    "installCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": "denari-site"
+  }
 } 
